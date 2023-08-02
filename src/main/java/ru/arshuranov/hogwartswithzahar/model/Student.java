@@ -1,8 +1,6 @@
 package ru.arshuranov.hogwartswithzahar.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +12,10 @@ public class Student {
     private String name;
     private int age;
 
+    @ManyToOne
+    @JoinColumn(name = "faculty_id")
+    private Faculty faculty;
+
     public Student() {
     }
 
@@ -21,6 +23,14 @@ public class Student {
         this.id = id;
         this.name = name;
         this.age = age;
+    }
+
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
     }
 
     public Long getId() {

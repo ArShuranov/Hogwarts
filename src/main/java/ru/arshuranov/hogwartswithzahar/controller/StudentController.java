@@ -5,7 +5,6 @@ import ru.arshuranov.hogwartswithzahar.model.Student;
 import ru.arshuranov.hogwartswithzahar.service.StudentService;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/students")
@@ -16,10 +15,10 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping
+ /*   @GetMapping
     public Map<Long, Student> getAllStudents() {
         return studentService.getAll();
-    }
+    }*/
 
     @GetMapping("/{id}")
     public Student get(@PathVariable Long id) {

@@ -6,12 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 public interface FacultyService {
+
+    /*Map<Long, Faculty> getAll();*/
     Faculty add(Faculty faculty);
     Faculty get(Long id);
     Faculty update(Long id, Faculty faculty);
     void remove(Long id);
 
-    Map<Long, Faculty> getAll();
 
-    public List<Faculty> getFacultiesByColor(String color);
+
+     List<Faculty> getFacultiesByColor(String color);
 }

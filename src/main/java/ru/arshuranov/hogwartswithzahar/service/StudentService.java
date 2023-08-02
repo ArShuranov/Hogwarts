@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface StudentService {
-    Map<Long, Student> getAll();
+   /* Map<Long, Student> getAll();*/
 
     Student add(Student student);
     Student get(Long id);

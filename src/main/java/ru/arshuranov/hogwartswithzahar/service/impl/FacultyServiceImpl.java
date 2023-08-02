@@ -2,9 +2,11 @@ package ru.arshuranov.hogwartswithzahar.service.impl;
 
 import org.springframework.stereotype.Service;
 import ru.arshuranov.hogwartswithzahar.model.Faculty;
+import ru.arshuranov.hogwartswithzahar.model.Student;
+import ru.arshuranov.hogwartswithzahar.repository.FacultyRepository;
+import ru.arshuranov.hogwartswithzahar.repository.StudentRepository;
 import ru.arshuranov.hogwartswithzahar.service.FacultyService;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -12,42 +14,45 @@ import java.util.stream.Collectors;
 @Service
 public class FacultyServiceImpl implements FacultyService {
 
-    private final Map<Long, Faculty> faculties = new HashMap<>();
-    private static long counter = 0;
+    private final FacultyRepository facultyRepository;
+
+    public FacultyServiceImpl(StudentRepository studentRepository, FacultyRepository facultyRepository) {
+        this.facultyRepository = facultyRepository;
+    }
+
+    /*@Override
+    public Map<Long, Faculty> getAll() {
+        return faculties;
+    }*/
 
     @Override
     public Faculty add(Faculty faculty) {
-        faculty.setId(++counter);
-        faculties.put(faculty.getId(), faculty);
-        return faculties.get(faculty.getId());
-    }
-
-    @Override
-    public Map<Long, Faculty> getAll() {
-        return faculties;
+       return facultyRepository.save(faculty);
     }
 
     @Override
     public List<Faculty> getFacultiesByColor(String color) {
-       return faculties.values()
-                .stream()
-                .filter(it -> it.getColor().equals(color))
-                .collect(Collectors.toList());
+       return facultyRepository.findByColor(color);
     }
 
     @Override
     public Faculty get(Long id) {
-        return faculties.get(id);
+        return facultyRepository.findById(id).orElse(null);
     }
 
     @Override
     public Faculty update(Long id, Faculty faculty) {
-        faculty.setId(id);
-        return faculties.put(faculty.getId(), faculty);
+        Faculty facultyFromDb = get(id);
+        if (facultyFromDb == null) {
+            return null;
+        }
+        facultyFromDb.setName(faculty.getName());
+        facultyFromDb.setColor(faculty.getColor());
+        return facultyRepository.save(facultyFromDb);
     }
 
     @Override
     public void remove(Long id) {
-        faculties.remove(id);
+        facultyRepository.deleteById(id);
     }
 }

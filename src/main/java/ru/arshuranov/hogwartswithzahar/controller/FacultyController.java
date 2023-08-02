@@ -17,10 +17,10 @@ public class FacultyController {
         this.facultyService = facultyService;
     }
 
-    @GetMapping
+  /*  @GetMapping
     public Map<Long, Faculty> getAllfacultys() {
         return  facultyService.getAll();
-    }
+    }*/
 
     @GetMapping("/{id}")
     public Faculty get(@PathVariable Long id) {

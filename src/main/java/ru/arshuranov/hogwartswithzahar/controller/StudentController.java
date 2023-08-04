@@ -35,6 +35,11 @@ public class StudentController {
     public Map<Long, Student> getAllStudents() {
         return studentService.getAll();
     }*/
+    //Это для теста
+    @GetMapping
+    public String greetings() {
+        return "Welcome to Hogwarts!";
+    }
 
     @GetMapping("/{id}")
     public Student get(@PathVariable Long id) {

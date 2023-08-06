@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import ru.arshuranov.hogwartswithzahar.controller.StudentController;
+import ru.arshuranov.hogwartswithzahar.model.Student;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -38,6 +39,13 @@ class HogwartsWithZaharApplicationRestTemplateTests {
         assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/students/1", String.class))
                 .isEqualTo("{\"id\":1,\"name\":\"Harry Potter\",\"age\":14,\"faculty\":{\"id\":5,\"name\":\"Griffindor\",\"color\":\"blue\"}}");
     }
+
+
+    /*@Test
+    void  testGetStudentById() throws Exception {
+        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/students/1", Student.class))
+                .isEqualTo(new Student().);
+    }*/
 
     @Test
     void  testGetStudentByIdIsNotEmpty() throws Exception {

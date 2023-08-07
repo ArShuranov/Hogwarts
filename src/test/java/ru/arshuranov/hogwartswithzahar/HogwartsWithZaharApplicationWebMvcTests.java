@@ -202,11 +202,11 @@ public class HogwartsWithZaharApplicationWebMvcTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(student)))
-                        .andExpect(status().isOk())
-                        .andExpect(jsonPath("$.id").value(id))
-                        .andExpect(jsonPath("$.name").value(student.getName()))
-                        .andExpect(jsonPath("$.age").value(student.getAge()))
-                        .andDo(print());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(id))
+                .andExpect(jsonPath("$.name").value(student.getName()))
+                .andExpect(jsonPath("$.age").value(student.getAge()))
+                .andDo(print());
     }
 
     @Test

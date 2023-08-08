@@ -259,12 +259,15 @@ public class HogwartsWithZaharApplicationWebMvcTests {
                 .andDo(print());
     }
 
+
     @Test
     void shouldReturnFaculty() throws Exception {
         Long id = 1L;
         Faculty faculty = new Faculty(1L, "Griffindor", "red");
 
-        when(studentService.getFacultyByStudent(id)).thenReturn(faculty);
+        Student s = new Student(1L, "test", 15);
+        s.setFaculty(faculty);
+        when(studentRepository.findById(id)).thenReturn(Optional.of(s));
         mockMvc.perform(MockMvcRequestBuilders.get("/students/" + id + "/faculty")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))

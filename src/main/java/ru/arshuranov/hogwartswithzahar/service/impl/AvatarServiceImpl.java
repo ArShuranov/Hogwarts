@@ -1,6 +1,7 @@
 package ru.arshuranov.hogwartswithzahar.service.impl;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.arshuranov.hogwartswithzahar.model.Avatar;
@@ -12,6 +13,7 @@ import ru.arshuranov.hogwartswithzahar.service.AvatarService;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
@@ -74,6 +76,13 @@ public class AvatarServiceImpl implements AvatarService {
                 .findByStudent_Id(studentId)
                 .orElse(new Avatar());
 
+    }
+
+    @Override
+    public List<Avatar> getAvatars(Integer pageNumber, Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
+
+        return avatarRepository.findAll(pageRequest).getContent();
     }
 
     private String getExtensions(String fileName) {

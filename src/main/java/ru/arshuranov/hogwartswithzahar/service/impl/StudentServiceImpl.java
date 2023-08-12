@@ -17,11 +17,6 @@ public class StudentServiceImpl implements StudentService {
         this.studentRepository = studentRepository;
     }
 
-    /*@Override
-    public Map<Long, Student> getAll() {
-        return null;
-    }*/
-
     @Override
     public Student add(Student student) {
        return studentRepository.save(student);

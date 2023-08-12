@@ -11,5 +11,5 @@ public interface AvatarRepository extends JpaRepository<Avatar, Long> {
     Optional<Avatar> findByStudent_Id(Long studentId);
 
     //@Query(value = "SELECT * from avatar", nativeQuery = true)
-    List<Avatar> findAll();
+    //List<Avatar> findAll();
 }

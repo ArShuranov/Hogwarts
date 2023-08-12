@@ -2,8 +2,11 @@ package ru.arshuranov.hogwartswithzahar.service.impl;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import ru.arshuranov.hogwartswithzahar.dto.AvatarDTO;
+import ru.arshuranov.hogwartswithzahar.mapper.AvatarMapper;
 import ru.arshuranov.hogwartswithzahar.model.Avatar;
 import ru.arshuranov.hogwartswithzahar.model.Student;
 import ru.arshuranov.hogwartswithzahar.repository.AvatarRepository;
@@ -14,6 +17,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
@@ -22,13 +26,15 @@ public class AvatarServiceImpl implements AvatarService {
     private final StudentRepository studentRepository;
 
     private final AvatarRepository avatarRepository;
+    private final AvatarMapper avatarMapper;
 
     @Value("${path.to.avatars.folder}")
     private String avatarsDir;
 
-    public AvatarServiceImpl(StudentRepository studentRepository, AvatarRepository avatarRepository) {
+    public AvatarServiceImpl(StudentRepository studentRepository, AvatarRepository avatarRepository, AvatarMapper avatarMapper) {
         this.studentRepository = studentRepository;
         this.avatarRepository = avatarRepository;
+        this.avatarMapper = avatarMapper;
     }
 
     @Override
@@ -79,10 +85,14 @@ public class AvatarServiceImpl implements AvatarService {
     }
 
     @Override
-    public List<Avatar> getAvatars(Integer pageNumber, Integer pageSize) {
-        PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
-
-        return avatarRepository.findAll(pageRequest).getContent();
+    public List<AvatarDTO> getPaginatedAvatars(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
+        return avatarRepository
+                .findAll(pageable)
+                .getContent()
+                .stream()
+                .map(avatarMapper::mapToDTO)
+                .collect(Collectors.toList());
     }
 
     private String getExtensions(String fileName) {

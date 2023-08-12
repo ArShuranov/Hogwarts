@@ -1,6 +1,7 @@
 package ru.arshuranov.hogwartswithzahar.service;
 
 import org.springframework.web.multipart.MultipartFile;
+import ru.arshuranov.hogwartswithzahar.dto.AvatarDTO;
 import ru.arshuranov.hogwartswithzahar.model.Avatar;
 
 import java.io.IOException;
@@ -11,5 +12,5 @@ public interface AvatarService {
 
     Avatar findAvatar(Long studentId);
 
-    List<Avatar> getAvatars(Integer pageNumber, Integer pageSize);
+    List<AvatarDTO> getPaginatedAvatars (int pageNumber, int pageSize);
 }

@@ -31,10 +31,7 @@ public class StudentController {
         this.avatarService = avatarService;
     }
 
- /*   @GetMapping
-    public Map<Long, Student> getAllStudents() {
-        return studentService.getAll();
-    }*/
+
     //Это для теста
     @GetMapping
     public String greetings() {

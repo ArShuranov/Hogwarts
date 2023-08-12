@@ -20,11 +20,6 @@ public class FacultyServiceImpl implements FacultyService {
         this.facultyRepository = facultyRepository;
     }
 
-    /*@Override
-    public Map<Long, Faculty> getAll() {
-        return faculties;
-    }*/
-
     @Override
     public Faculty add(Faculty faculty) {
        return facultyRepository.save(faculty);

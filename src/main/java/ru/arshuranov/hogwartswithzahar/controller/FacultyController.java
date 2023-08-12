@@ -6,7 +6,6 @@ import ru.arshuranov.hogwartswithzahar.model.Student;
 import ru.arshuranov.hogwartswithzahar.service.FacultyService;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/faculties")
@@ -16,11 +15,6 @@ public class FacultyController {
     public FacultyController(FacultyService facultyService) {
         this.facultyService = facultyService;
     }
-
-  /*  @GetMapping
-    public Map<Long, Faculty> getAllfacultys() {
-        return  facultyService.getAll();
-    }*/
 
     @GetMapping("/{id}")
     public Faculty get(@PathVariable Long id) {

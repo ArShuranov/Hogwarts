@@ -1,5 +1,7 @@
 package ru.arshuranov.hogwartswithzahar.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +29,9 @@ public class AvatarServiceImpl implements AvatarService {
 
     private final AvatarRepository avatarRepository;
     private final AvatarMapper avatarMapper;
+
+
+    Logger logger = LoggerFactory.getLogger(AvatarServiceImpl.class);
 
     @Value("${path.to.avatars.folder}")
     private String avatarsDir;
@@ -86,13 +91,17 @@ public class AvatarServiceImpl implements AvatarService {
 
     @Override
     public List<AvatarDTO> getPaginatedAvatars(int pageNumber, int pageSize) {
+        logger.debug("Получаем список аватаров постранично: на {} странице, {} количество аватаров ", pageNumber, pageSize);
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
-        return avatarRepository
+        List<AvatarDTO> collect = avatarRepository
                 .findAll(pageable)
                 .getContent()
                 .stream()
                 .map(avatarMapper::mapToDTO)
                 .collect(Collectors.toList());
+
+        logger.debug("Получаем список аватаров постранично: {}", collect);
+        return collect;
     }
 
     private String getExtensions(String fileName) {

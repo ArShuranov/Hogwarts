@@ -1,5 +1,7 @@
 package ru.arshuranov.hogwartswithzahar.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.arshuranov.hogwartswithzahar.model.Faculty;
 import ru.arshuranov.hogwartswithzahar.model.Student;
@@ -8,13 +10,13 @@ import ru.arshuranov.hogwartswithzahar.repository.StudentRepository;
 import ru.arshuranov.hogwartswithzahar.service.FacultyService;
 
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class FacultyServiceImpl implements FacultyService {
 
     private final FacultyRepository facultyRepository;
+
+    Logger logger = LoggerFactory.getLogger(FacultyServiceImpl.class);
 
     public FacultyServiceImpl(StudentRepository studentRepository, FacultyRepository facultyRepository) {
         this.facultyRepository = facultyRepository;
@@ -22,12 +24,15 @@ public class FacultyServiceImpl implements FacultyService {
 
     @Override
     public Faculty add(Faculty faculty) {
-       return facultyRepository.save(faculty);
+        return facultyRepository.save(faculty);
     }
 
     @Override
     public List<Faculty> getFacultiesByColor(String color) {
-       return facultyRepository.findByColor(color);
+        logger.debug("Получаем факультет по цвету {}", color);
+        List<Faculty> byColor = facultyRepository.findByColor(color);
+        logger.debug("Получили следующий факультет по цвету {}, факультет {}", color, byColor);
+        return byColor;
     }
 
     @Override

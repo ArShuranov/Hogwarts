@@ -1,5 +1,7 @@
 package ru.arshuranov.hogwartswithzahar.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.arshuranov.hogwartswithzahar.model.Faculty;
 import ru.arshuranov.hogwartswithzahar.model.Student;
@@ -10,6 +12,8 @@ import java.util.List;
 
 @Service
 public class StudentServiceImpl implements StudentService {
+
+    Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
 
     private final StudentRepository studentRepository;
 
@@ -25,8 +29,12 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student get(Long id) {
-        return studentRepository.findById(id)
+        logger.debug("Получаем студента по id {}", id);
+
+        Student student = studentRepository.findById(id)
                 .orElse(null);
+        logger.debug("Вот такой получился студент {}", student);
+        return student;
     }
 
     @Override

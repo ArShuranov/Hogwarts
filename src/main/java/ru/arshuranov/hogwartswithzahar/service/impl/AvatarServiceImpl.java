@@ -20,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
@@ -102,6 +103,15 @@ public class AvatarServiceImpl implements AvatarService {
 
         logger.debug("Получаем список аватаров постранично: {}", collect);
         return collect;
+    }
+
+    @Override
+    public Integer intValue() {
+        int sum = Stream.iterate(1, a -> a +1)
+                .limit(1_000_000)
+                .parallel()
+                .reduce(0, (a, b) -> a + b );
+        return sum;
     }
 
     private String getExtensions(String fileName) {

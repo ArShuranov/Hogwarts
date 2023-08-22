@@ -8,7 +8,9 @@ import ru.arshuranov.hogwartswithzahar.model.Student;
 import ru.arshuranov.hogwartswithzahar.repository.StudentRepository;
 import ru.arshuranov.hogwartswithzahar.service.StudentService;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -22,8 +24,24 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
+    }
+
+    @Override
+    public List<String> nameStartWithLetter(String s) {
+        return getAllStudents().stream()
+                .filter(student -> student.getName().toLowerCase().startsWith(s.toLowerCase()))
+                .sorted(Comparator.comparing(Student::getName))
+                .map(Student::getName)
+                .map(String::toUpperCase)
+                .collect(Collectors.toList());
+
+    }
+
+    @Override
     public Student add(Student student) {
-       return studentRepository.save(student);
+        return studentRepository.save(student);
     }
 
 
@@ -74,9 +92,17 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.countStudents();
     }
 
-    @Override
+    //Этот метод возвращал средний возраст из базы данных, в новом задании следующий метод использую стримы и findAll
+    /*@Override
     public float avgAgeOfStudents() {
         return studentRepository.avgAgeOfStudents();
+    }*/
+
+    @Override
+    public Double avgAgeOfStudents() {
+        return getAllStudents().stream()
+                .mapToDouble(Student::getAge).average()
+                .getAsDouble();
     }
 
     @Override

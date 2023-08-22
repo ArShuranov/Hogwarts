@@ -4,6 +4,7 @@ import ru.arshuranov.hogwartswithzahar.model.Faculty;
 import ru.arshuranov.hogwartswithzahar.model.Student;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface FacultyService {
 
@@ -16,5 +17,7 @@ public interface FacultyService {
     List<Faculty> getFacultiesByColorOrName(String color, String name);
 
     List<Student> getStudents(Long id);
+
+    Optional<String> mostLongNameOfFaculty();
 
 }

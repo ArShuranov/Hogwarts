@@ -13,4 +13,6 @@ public interface AvatarService {
     Avatar findAvatar(Long studentId);
 
     List<AvatarDTO> getPaginatedAvatars (int pageNumber, int pageSize);
+
+    Integer intValue();
 }

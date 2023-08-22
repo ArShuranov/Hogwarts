@@ -33,9 +33,19 @@ public class StudentController {
 
 
     //Это для теста
-    @GetMapping
+   /* @GetMapping
     public String greetings() {
         return "Welcome to Hogwarts!";
+    }*/
+
+    @GetMapping
+    public List<Student> getAllStudents() {
+        return studentService.getAllStudents();
+    }
+
+    @GetMapping("/start-with/{s}")
+    public List<String> nameStartWithLetter(@PathVariable String s) {
+        return studentService.nameStartWithLetter(s);
     }
 
     @GetMapping("/{id}")
@@ -111,7 +121,7 @@ public class StudentController {
     }
 
     @GetMapping("/avg-age-of-students")
-    public float avgAgeOfStudents() {
+    public Double avgAgeOfStudents() {
         return studentService.avgAgeOfStudents();
     }
 

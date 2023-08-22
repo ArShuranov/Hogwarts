@@ -3,6 +3,7 @@ package ru.arshuranov.hogwartswithzahar.controller;
 import org.springframework.web.bind.annotation.*;
 import ru.arshuranov.hogwartswithzahar.dto.AvatarDTO;
 import ru.arshuranov.hogwartswithzahar.service.AvatarService;
+import ru.arshuranov.hogwartswithzahar.service.FacultyService;
 
 import java.util.List;
 
@@ -20,6 +21,11 @@ public class AvatarController {
     public List<AvatarDTO> getPaginatedAvatars(@RequestParam int pageNumber, @RequestParam int pageSize) {
 
         return avatarService.getPaginatedAvatars(pageNumber, pageSize);
+    }
+
+    @GetMapping("/int-value")
+    public Integer intValue() {
+        return avatarService.intValue();
     }
 
 

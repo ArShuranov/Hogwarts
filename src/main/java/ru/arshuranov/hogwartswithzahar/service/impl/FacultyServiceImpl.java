@@ -9,7 +9,9 @@ import ru.arshuranov.hogwartswithzahar.repository.FacultyRepository;
 import ru.arshuranov.hogwartswithzahar.repository.StudentRepository;
 import ru.arshuranov.hogwartswithzahar.service.FacultyService;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FacultyServiceImpl implements FacultyService {
@@ -45,6 +47,14 @@ public class FacultyServiceImpl implements FacultyService {
         return facultyRepository.findById(id)
                 .map(Faculty::getStudents)
                 .orElse(null);
+    }
+
+    @Override
+    public Optional<String> mostLongNameOfFaculty() {
+        return facultyRepository.findAll().stream()
+                .map(Faculty::getName)
+                .max(Comparator.comparingInt(String::length));
+
     }
 
     @Override

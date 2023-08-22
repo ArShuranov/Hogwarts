@@ -7,6 +7,10 @@ import java.util.List;
 
 public interface StudentService {
 
+    List<Student> getAllStudents();
+
+    List<String> nameStartWithLetter(String s);
+
     Student add(Student student);
     Student get(Long id);
     Student update(Long id, Student student);
@@ -19,7 +23,7 @@ public interface StudentService {
 
     int countStudents();
 
-    float avgAgeOfStudents();
+    Double avgAgeOfStudents();
 
     List<Student> getLastFiveStudents();
 

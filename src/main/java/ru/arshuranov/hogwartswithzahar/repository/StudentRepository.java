@@ -11,6 +11,7 @@ import java.util.List;
 public interface StudentRepository extends JpaRepository<Student, Long> {
     List<Student> findByAge(int age);
     List<Student> findByAgeBetween(int min, int max);
+    List<Student> findAll();
 
     @Query(value = "select count(*) from student", nativeQuery = true)
     int countStudents();

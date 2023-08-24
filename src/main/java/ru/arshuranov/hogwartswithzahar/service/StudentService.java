@@ -9,6 +9,9 @@ public interface StudentService {
 
     List<Student> getAllStudents();
 
+    void getAllStudentsConsoleWithThreadsAsynch();
+
+    void getAllStudentsConsoleWithThreadsSynch();
     List<String> nameStartWithLetter(String s);
 
     Student add(Student student);

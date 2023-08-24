@@ -31,12 +31,16 @@ public class StudentController {
         this.avatarService = avatarService;
     }
 
+    @GetMapping("/thread/{synch}")
+    public void getAllStudentsConsoleWithThreads(boolean synch) {
+        if (!synch) {
+            studentService.getAllStudentsConsoleWithThreadsAsynch();
+        }
+        if (synch) {
+            studentService.getAllStudentsConsoleWithThreadsSynch();
+        }
 
-    //Это для теста
-   /* @GetMapping
-    public String greetings() {
-        return "Welcome to Hogwarts!";
-    }*/
+    }
 
     @GetMapping
     public List<Student> getAllStudents() {
@@ -130,8 +134,6 @@ public class StudentController {
     public List<Student> getLastFiveStudents() {
         return studentService.getLastFiveStudents();
     }
-
-
 
 
 }

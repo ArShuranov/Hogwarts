@@ -29,6 +29,59 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public void getAllStudentsConsoleWithThreadsSynch() {
+
+        getNameFromStudentsForThreadsSynch(0);
+        getNameFromStudentsForThreadsSynch(1);
+
+        new Thread(() -> {
+            getNameFromStudentsForThreadsSynch(2);
+            getNameFromStudentsForThreadsSynch(3);
+
+        }).start();
+
+        new Thread(() -> {
+            getNameFromStudentsForThreadsSynch(4);
+            getNameFromStudentsForThreadsSynch(5);
+
+        }).start();
+
+    }
+
+    @Override
+    public void getAllStudentsConsoleWithThreadsAsynch() {
+
+        getNameFromStudentsForThreadsAsynch(0);
+        getNameFromStudentsForThreadsAsynch(1);
+
+        new Thread(() -> {
+            getNameFromStudentsForThreadsAsynch(2);
+            getNameFromStudentsForThreadsAsynch(3);
+
+        }).start();
+
+        new Thread(() -> {
+            getNameFromStudentsForThreadsAsynch(4);
+            getNameFromStudentsForThreadsAsynch(5);
+
+        }).start();
+    }
+
+    private void getNameFromStudentsForThreadsAsynch(int index) {
+        String name;
+        List<Student> tmp = getAllStudents();
+        name = tmp.get(index).getName();
+        System.out.println(name);
+    }
+
+    private synchronized void getNameFromStudentsForThreadsSynch(int index) {
+        String name;
+        List<Student> tmp = getAllStudents();
+        name = tmp.get(index).getName();
+        System.out.println(name);
+    }
+
+    @Override
     public List<String> nameStartWithLetter(String s) {
         return getAllStudents().stream()
                 .filter(student -> student.getName().toLowerCase().startsWith(s.toLowerCase()))

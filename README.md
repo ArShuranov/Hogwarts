@@ -1,5 +1,5 @@
 # HomeWork_3_2_With_Zahar
-coorected by Zahar example
+Study project
 This job includes some housework. Hogwarts is created. There are students, faculties. 
 This is a web application, using spring. All data is stored in the postgre database. 
 For requests to the databaseJPA repositories and SQL are used. 

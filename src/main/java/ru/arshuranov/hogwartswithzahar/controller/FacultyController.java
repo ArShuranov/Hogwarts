@@ -6,7 +6,7 @@ import ru.arshuranov.hogwartswithzahar.model.Student;
 import ru.arshuranov.hogwartswithzahar.service.FacultyService;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/faculties")
@@ -17,9 +17,9 @@ public class FacultyController {
         this.facultyService = facultyService;
     }
 
-    @GetMapping
-    public Map<Long, Faculty> getAllfacultys() {
-        return  facultyService.getAll();
+    @GetMapping("/most-long-name-of-fuculty")
+    public Optional<String> mostLongNameOfFaculty() {
+        return facultyService.mostLongNameOfFaculty();
     }
 
     @GetMapping("/{id}")
@@ -45,6 +45,16 @@ public class FacultyController {
     @GetMapping("/by-color")
     public List<Faculty> getFacultiesByColor(@RequestParam String color) {
         return facultyService.getFacultiesByColor(color);
+    }
+
+    @GetMapping("/by-color-or-name")
+    public List<Faculty> getFacultiesByColorOrName(@RequestParam String color, @RequestParam String name) {
+        return facultyService.getFacultiesByColorOrName(color, name);
+    }
+
+    @GetMapping("/{id}/students")
+    public List<Student> getStudents(@PathVariable Long id) {
+        return facultyService.getStudents(id);
     }
 
 }

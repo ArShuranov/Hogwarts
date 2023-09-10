@@ -26,14 +26,15 @@ import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
 @Service
 public class AvatarServiceImpl implements AvatarService {
-    private final StudentRepository studentRepository;
 
+    private final StudentRepository studentRepository;
     private final AvatarRepository avatarRepository;
     private final AvatarMapper avatarMapper;
 
-
+    //initialization logger
     Logger logger = LoggerFactory.getLogger(AvatarServiceImpl.class);
 
+    //set directory for avatars
     @Value("${path.to.avatars.folder}")
     private String avatarsDir;
 
@@ -43,6 +44,7 @@ public class AvatarServiceImpl implements AvatarService {
         this.avatarMapper = avatarMapper;
     }
 
+    //upload avatar
     @Override
     public void uploadAvatar(Long studentId, MultipartFile avatarFile) throws IOException {
 
@@ -54,6 +56,7 @@ public class AvatarServiceImpl implements AvatarService {
 
     }
 
+    //save avatar in to DB
     private void saveToDb(Student student, MultipartFile avatarFile, Path filePath) throws IOException {
 
         Avatar avatar = findAvatar(student.getId());
@@ -65,6 +68,7 @@ public class AvatarServiceImpl implements AvatarService {
         avatarRepository.save(avatar);
     }
 
+    //save avatar to disk
     private Path saveToDisk(Student student, MultipartFile avatarFile) throws IOException {
         Path filePath = Path.of(
                 avatarsDir,
@@ -90,6 +94,7 @@ public class AvatarServiceImpl implements AvatarService {
 
     }
 
+    //output paginated avatars
     @Override
     public List<AvatarDTO> getPaginatedAvatars(int pageNumber, int pageSize) {
         logger.debug("Получаем список аватаров постранично: на {} странице, {} количество аватаров ", pageNumber, pageSize);
@@ -104,7 +109,7 @@ public class AvatarServiceImpl implements AvatarService {
         logger.debug("Получаем список аватаров постранично: {}", collect);
         return collect;
     }
-
+    //doesn't matter it just for test parallel stream
     @Override
     public Integer intValue() {
         int sum = Stream.iterate(1, a -> a +1)
@@ -114,6 +119,7 @@ public class AvatarServiceImpl implements AvatarService {
         return sum;
     }
 
+    //get extensions file of avatar for rename before save
     private String getExtensions(String fileName) {
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }

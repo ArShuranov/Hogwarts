@@ -3,7 +3,6 @@ package ru.arshuranov.hogwartswithzahar.controller;
 import org.springframework.web.bind.annotation.*;
 import ru.arshuranov.hogwartswithzahar.dto.AvatarDTO;
 import ru.arshuranov.hogwartswithzahar.service.AvatarService;
-import ru.arshuranov.hogwartswithzahar.service.FacultyService;
 
 import java.util.List;
 
